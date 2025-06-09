@@ -1,10 +1,6 @@
 # use PowerShell instead of sh:
 set shell := ["powershell.exe", "-c"]
 
-# Run django development server
-runserver:
-    @docker-compose run --rm app sh -c "python manage.py runserver"
-
 # Run flake8 linter
 lint:
     docker-compose run --rm app sh -c "flake8"
@@ -28,3 +24,11 @@ shell:
 # Run manage.py commands
 manage +command:
     docker-compose run --rm app sh -c "python manage.py {{command}}"
+
+# Start the application using docker-compose
+up:
+    docker-compose up
+
+# Stop the application using docker-compose
+down:
+    docker-compose down
