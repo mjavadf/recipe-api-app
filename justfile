@@ -19,7 +19,7 @@ makemigrations app="":
 
 # Apply migrations for a specific app
 migrate app="":
-    docker-compose run --rm app sh -c "python manage.py migrate {{app}}"
+    docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py migrate {{app}}"
 
 # Run shell in the app container
 shell:
@@ -29,9 +29,9 @@ shell:
 manage +command:
     docker-compose run --rm app sh -c "python manage.py {{command}}"
 
-# Start the application using docker-compose
+# Start the application in detached modeusing docker-compose
 up:
-    docker-compose up
+    docker-compose up -d
 
 # Stop the application using docker-compose
 down:
