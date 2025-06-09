@@ -1,6 +1,10 @@
 # use PowerShell instead of sh:
 set shell := ["powershell.exe", "-c"]
 
+# Default command to run test and linter
+@default:
+    docker-compose run --rm app sh -c "python manage.py test && flake8"
+
 # Run flake8 linter
 lint:
     docker-compose run --rm app sh -c "flake8"
