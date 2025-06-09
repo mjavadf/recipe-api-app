@@ -25,3 +25,6 @@ migrate app="":
 shell:
     docker-compose run --rm app sh -c "python manage.py shell -i ipython"
 
+# Run manage.py commands
+manage +command:
+    docker-compose run --rm app sh -c "python manage.py {{command}}"
