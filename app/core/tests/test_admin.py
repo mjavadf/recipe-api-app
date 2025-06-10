@@ -50,7 +50,8 @@ class AdminSiteTests(TestCase):
         self.assertEqual(res.status_code, 200)
 
     def test_create_user_page_success(self):
-        """Test that the create user page is can be used to create a new user."""
+        """Test that the create user page is can be
+        used to create a new user."""
         url = reverse("admin:core_user_add")
         res = self.client.post(
             url,
