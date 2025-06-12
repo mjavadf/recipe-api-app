@@ -17,7 +17,7 @@ class ModelTests(TestCase):
         password = "test1234"
         user = get_user_model().objects.create_user(
             email=email, password=password
-        )
+        ) # type: ignore
 
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
@@ -34,7 +34,7 @@ class ModelTests(TestCase):
         for email, expected in sample_emails:
             user = get_user_model().objects.create_user(
                 email=email, password="test1234"
-            )
+            ) # type: ignore
             self.assertEqual(user.email, expected)
 
     def test_new_user_without_email_fails(self):
@@ -48,7 +48,7 @@ class ModelTests(TestCase):
         user = get_user_model().objects.create_superuser(
             "test@example.com",
             password="test1234",
-        )
+        ) # type: ignore
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
@@ -57,7 +57,7 @@ class ModelTests(TestCase):
         """Test creating a recipe is successful."""
         user = get_user_model().objects.create_user(
             email="test@example.com", password="test1234"
-        )
+        ) # type: ignore
         recipe = models.Recipe.objects.create(
             user=user,
             title="Sample Recipe name",
