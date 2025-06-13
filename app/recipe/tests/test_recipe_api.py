@@ -199,7 +199,7 @@ class PrivateRecipeAPITestCase(TestCase):
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Recipe.objects.filter(id=recipe.id).exists())  # type: ignore
+        self.assertFalse(Recipe.objects.filter(id=recipe.id).exists())  # noqa: E501 type: ignore
 
     def test_delete_other_users_recipe_error(self):
         """Test trying to delete a recipe owned by another user."""
@@ -214,4 +214,4 @@ class PrivateRecipeAPITestCase(TestCase):
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertTrue(Recipe.objects.filter(id=recipe.id).exists())  # type: ignore
+        self.assertTrue(Recipe.objects.filter(id=recipe.id).exists())  # noqa: E501 type: ignore
