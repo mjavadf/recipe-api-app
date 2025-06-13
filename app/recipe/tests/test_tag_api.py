@@ -12,6 +12,11 @@ from recipe.serializers import TagSerializer
 TAGS_URL = reverse("recipe:tag-list")
 
 
+def detail_url(tag_id) -> str:
+    """Create and return a detail URL for a tag"""
+    return reverse("recipe:tag-detail", args=[tag_id])
+
+
 def create_user(email="user@example.com", password="testpassword1234"):
     """Create and return a user"""
     return get_user_model().objects.create_user(email=email, password=password)  # type: ignore # noqa: E501
@@ -65,3 +70,15 @@ class PrivateTagAPITestCase(TestCase):
         self.assertEqual(len(res.json()), 1)
         self.assertEqual(res.json()[0]["name"], tag.name)
         self.assertEqual(res.json()[0]["id"], tag.id)
+
+    def test_update_tag(self):
+        """Test updating a tag."""
+        tag = Tag.objects.create(name="Seafood", user=self.user)
+
+        payload = {"name": "Insalata"}
+        url = detail_url(tag.id)
+        res = self.client.patch(url, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        tag.refresh_from_db()
+        self.assertEqual(tag.name, payload["name"])
