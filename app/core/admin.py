@@ -58,3 +58,8 @@ class UserAdmin(BaseUserAdmin):
 @admin.register(models.Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.Tag)
+class TagAdmin(admin.ModelAdmin):
+    pass
