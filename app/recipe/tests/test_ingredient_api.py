@@ -12,7 +12,7 @@ from recipe.serializers import IngredientSerializer
 INGREDIENTS_URL = reverse("recipe:ingredient-list")
 
 
-def get_url(ingredient_id):
+def detail_url(ingredient_id):
     """Create and return a detail URL for an Ingredient"""
     return reverse("recipe:ingredient-detail", args=[ingredient_id])
 
@@ -77,10 +77,20 @@ class PrivateIngredientAPITestCase(TestCase):
         ingredient = Ingredient.objects.create(name="Cucumber", user=self.user)
 
         payload = {"name": "Tomato"}
-        url = get_url(ingredient.id)
+        url = detail_url(ingredient.id)
 
         res = self.client.patch(url, payload)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         ingredient.refresh_from_db()
         self.assertEqual(ingredient.name, payload["name"])
+
+    def test_delete_ingredient(self):
+        """Test deleting an Ingredient"""
+        ingredient = Ingredient.objects.create(name="Onion", user=self.user)
+        url = detail_url(ingredient.id)
+
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Ingredient.objects.filter(id=ingredient.id).exists())

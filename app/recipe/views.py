@@ -58,6 +58,7 @@ class TagViewSet(
 class IngredientViewSet(
     mixins.ListModelMixin,
     mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
     """Manage ingredients for the authenticated user."""
