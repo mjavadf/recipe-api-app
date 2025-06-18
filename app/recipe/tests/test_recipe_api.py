@@ -447,6 +447,5 @@ class ImageUploadTests(TestCase):
         url = image_upload_url(self.recipe.id)
         payload = {"image": "invalid-image.jpg"}
         res = self.client.post(url, payload, format="multipart")
-        
+
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-        
