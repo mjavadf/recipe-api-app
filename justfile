@@ -36,3 +36,7 @@ up:
 # Stop the application using docker-compose
 down:
     docker-compose down
+
+# Show the logs for the app container
+logs *args:
+    docker-compose logs {{args}}
